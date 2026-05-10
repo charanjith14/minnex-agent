@@ -275,6 +275,19 @@ export default function AgentApp({ user }) {
     }
   };
 
+  const toggleEco = async () => {
+    const nextEco = !agentProfile?.isEco;
+    setBusyId("eco");
+    try {
+      await setDoc(doc(db, "agents", agentId), { isEco: nextEco }, { merge: true });
+      setMessage(nextEco ? "Eco-Go mode active! Delivering via EV/Cycle." : "Eco-Go mode disabled.");
+    } catch (error) {
+      setMessage("Could not update Eco mode.");
+    } finally {
+      setBusyId("");
+    }
+  };
+
   const updateOrder = async (orderId, data) => {
     setBusyId(orderId);
     setMessage("");
@@ -453,6 +466,12 @@ export default function AgentApp({ user }) {
             <span>Earned</span>
             <strong>Rs {earnings.total}</strong>
           </div>
+          {agentProfile?.isEco && (
+            <div className="menu-kpi" style={{borderColor: 'var(--green)', background: 'rgba(34, 197, 94, 0.1)'}}>
+              <span style={{color: 'var(--green)'}}>Eco Partner</span>
+              <strong>🌱 Active</strong>
+            </div>
+          )}
           <details className="menu-popover">
             <summary className="menu-trigger">Menu</summary>
             <div className="menu-panel">
@@ -702,6 +721,18 @@ function VerificationPanel({ agentName, form, profile, busy, onAgentNameChange, 
           </button>
         </div>
       )}
+
+      <div className="diet-toggle-bar" style={{marginTop: '20px', margin: '20px 0 0'}}>
+        <div className="diet-icon">🌱</div>
+        <div className="diet-info">
+          <strong>Eco-Go Mode</strong>
+          <span>Deliver using EV or Cycle for higher base pay</span>
+        </div>
+        <label className="switch">
+          <input type="checkbox" checked={profile?.isEco || false} onChange={toggleEco} disabled={busy} />
+          <span className="slider"></span>
+        </label>
+      </div>
     </section>
   );
 }
