@@ -15,6 +15,8 @@
   --glass-border: 1px solid rgba(255, 255, 255, 0.1);
   --glass-bg: rgba(2, 6, 23, 0.8);
   --font-main: 'Outfit', sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 * {
@@ -2296,4 +2298,50 @@ textarea {
 
 .menu-info-account strong {
   overflow-wrap: anywhere;
+}
+/* Mobile optimizations for Agent */
+@media (max-width: 640px) {
+  .agent-top-bar {
+    padding: calc(10px + var(--safe-top)) 12px 10px;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .agent-hero {
+    padding: 24px 16px;
+  }
+
+  .agent-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .agent-metrics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .agent-layout {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .agent-panel {
+    padding: 16px;
+  }
+
+  .status-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .location-strip {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .location-strip button {
+    width: 100%;
+  }
 }
