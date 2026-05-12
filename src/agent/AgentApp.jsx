@@ -492,12 +492,14 @@ export default function AgentApp({ user }) {
 
       <main className="agent-content">
         <section className="agent-hero">
-          <div>
-            <p className="eyebrow">Minnex Go</p>
-            <h1>Priority pickups, route updates, and earnings up front.</h1>
+          <div className="hero-glow agent-glow"></div>
+          <div className="hero-content">
+            <span className="premium-badge agent-badge">🏍️ GO PARTNER COMMAND</span>
+            <h1>Logistics in Motion</h1>
+            <p>Priority pickups, AI-optimized routes, and instant earnings. Powered by Minnex AI.</p>
           </div>
           <label className="agent-name-field">
-            <span>Go partner name</span>
+            <span>GO PARTNER IDENTITY</span>
             <input
               value={agentName}
               onChange={(event) => setAgentName(event.target.value)}
@@ -516,30 +518,30 @@ export default function AgentApp({ user }) {
           ))}
         </section>
 
-        <section className="agent-metrics" aria-label="Shift overview">
+        <section className="agent-metrics-grid" aria-label="Shift overview">
+          <div className="metric-tile highlighted">
+            <span>DAILY EARNINGS</span>
+            <strong>₹{earnings.total}</strong>
+          </div>
           <div className="metric-tile">
-            <span>Ready</span>
+            <span>READY PICKUPS</span>
             <strong>{pendingOrders.length}</strong>
           </div>
           <div className="metric-tile">
-            <span>Mine</span>
+            <span>ACTIVE</span>
             <strong>{myOrders.length}</strong>
           </div>
           <div className="metric-tile">
-            <span>Done</span>
+            <span>COMPLETED</span>
             <strong>{completedOrders.length}</strong>
           </div>
           <div className="metric-tile">
-            <span>Earned</span>
-            <strong>Rs {earnings.total}</strong>
+            <span>TOTAL TIPS</span>
+            <strong>₹{earnings.tips}</strong>
           </div>
           <div className="metric-tile">
-            <span>Tips</span>
-            <strong>Rs {earnings.tips}</strong>
-          </div>
-          <div className="metric-tile">
-            <span>Surge</span>
-            <strong>Rs {earnings.surge}</strong>
+            <span>SURGE PAY</span>
+            <strong>₹{earnings.surge}</strong>
           </div>
         </section>
 
@@ -747,12 +749,12 @@ function OrderCard({ order, busy, canAccept, verificationStatus, onAccept }) {
         </div>
         <span className="status-pill">{order.status}</span>
       </div>
-      <div className="shop-meta">
+      <div className="shop-meta agent-order-meta">
+        <span className="payout-pill">Earn ₹{getAgentEarnings(order).total}</span>
         <span>{order.eta || "ASAP"}</span>
-        <span>Rs {order.price}</span>
+        <span>₹{order.price}</span>
         <span>{order.paid ? "Paid" : "Unpaid"}</span>
-        <span>Earn Rs {getAgentEarnings(order).total}</span>
-        <span>Priority {order.matching?.priorityScore ?? 0}</span>
+        <span className="priority-pill">P: {order.matching?.priorityScore ?? 0}</span>
       </div>
       <button className="primary-button" onClick={onAccept} disabled={busy || !canAccept} type="button">
         {busy ? "Accepting..." : canAccept ? "Accept delivery" : `Verification ${verificationStatus}`}

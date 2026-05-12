@@ -1376,6 +1376,35 @@ textarea {
   line-height: 1;
 }
 
+.agent-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.metric-tile {
+  padding: 24px;
+  background: white;
+  border: var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.metric-tile.highlighted {
+  background: var(--night);
+  color: white;
+}
+.metric-tile.highlighted span { color: rgba(255,255,255,0.6); }
+.metric-tile.highlighted strong { color: var(--green); }
+
+.agent-glow {
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);
+}
+.agent-badge { color: var(--green); border-color: rgba(34, 197, 94, 0.3); }
+
+.agent-order-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.payout-pill { background: rgba(34, 197, 94, 0.1) !important; color: var(--green) !important; font-weight: 800 !important; }
+.priority-pill { background: rgba(249, 115, 22, 0.1) !important; color: var(--coral) !important; }
+
 .agent-notice {
   margin: 10px 0 16px;
   color: var(--coral);
